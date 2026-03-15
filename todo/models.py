@@ -1,7 +1,7 @@
 from django.db import models
 class userreg(models.Model):
     username=models.CharField(max_length=70)
-    email=models.CharField(max_length=100)
+    email = models.CharField(max_length=100, null=True, blank=True)
     password=models.CharField(max_length=100)
 
     def __str__(self):
