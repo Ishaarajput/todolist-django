@@ -6,23 +6,23 @@ def home(request):
 
 def signup(request):
     if request.method == "POST":
-        username=request.POST.get('username')
-        email=request.POST.get('email')
-        password=request.POST.get('password')
-        user=userreg(username=username,email=email,password=password)
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        user = userreg(username=username, email=email, password=password)
         user.save()
-        return render(request,'login.html')
-    return render(request,'signup.html')
+        return redirect('login')
+    return render(request, 'signup.html')
 
 def login(request):
     if request.method == "POST":
-        username=request.POST.get('username')
-        password=request.POST.get('password')
-        user=userreg.objects.filter(username=username,password=password).first()
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = userreg.objects.filter(username=username, password=password).first()
         if user:
-            return render(request,'dashboard.html')
+            return redirect('dashboard')
         else:
-            return render(request,'login.html')
+            return redirect('login')
     return render(request, 'login.html')
 
 def addtask(request):
