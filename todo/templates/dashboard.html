@@ -1,11 +1,212 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+<title>Todo Dashboard</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial;
+    background:#f5f7fa;
+}
+
+/* NAVBAR */
+
+.navbar{
+    background:#4CAF50;
+    padding:15px 40px;
+    display:flex;
+    justify-content:space-between;
+    color:white;
+}
+
+.navbar a{
+    color:white;
+    text-decoration:none;
+    font-size:16px;
+}
+
+/* CONTAINER */
+
+.container{
+    width:650px;
+    margin:auto;
+    margin-top:40px;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0px 5px 15px rgba(0,0,0,0.2);
+}
+
+h1{
+    text-align:center;
+}
+
+/* SEARCH BAR */
+
+.search{
+    display:flex;
+    margin-bottom:20px;
+}
+
+.search input{
+    flex:1;
+    padding:10px;
+}
+
+.search button{
+    padding:10px 20px;
+    background:#2196F3;
+    border:none;
+    color:white;
+    cursor:pointer;
+}
+
+/* ADD TASK */
+
+.add-task{
+    display:flex;
+    margin-bottom:25px;
+}
+
+.add-task input{
+    flex:1;
+    padding:10px;
+}
+
+.add-task button{
+    padding:10px 20px;
+    background:#4CAF50;
+    border:none;
+    color:white;
+}
+
+/* TASK LIST */
+
+.task{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#f0f0f0;
+    padding:12px;
+    margin-bottom:10px;
+    border-radius:6px;
+}
+
+/* COMPLETED TASK */
+
+.completed{
+    text-decoration:line-through;
+    color:gray;
+}
+
+/* BUTTONS */
+
+.actions button{
+    margin-left:5px;
+    padding:6px 10px;
+    border:none;
+    color:white;
+    cursor:pointer;
+    border-radius:4px;
+}
+
+.complete{
+    background:#2196F3;
+}
+
+.delete{
+    background:red;
+}
+
+</style>
+
 </head>
+
 <body>
-    
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<div>
+<b>Todo Dashboard</b>
+</div>
+
+<div>
+<a href="{%url 'login'%}">Logout</a>
+</div>
+
+</div>
+
+
+<div class="container">
+
+<h1>My Tasks</h1>
+
+<!-- SEARCH -->
+
+<form method="GET">
+
+<div class="search">
+
+<input type="text" name="search" placeholder="Search task...">
+
+<button type="submit">Search</button>
+
+</div>
+
+</form>
+
+
+<!-- ADD TASK -->
+
+<form method="POST" action="/addtask/">
+
+{% csrf_token %}
+
+<div class="add-task">
+
+<input type="text" name="task" placeholder="Enter new task" required>
+
+<button type="submit">Add Task</button>
+
+</div>
+
+</form>
+
+
+<!-- TASK LIST -->
+
+{% for task in tasks %}
+
+<div class="task">
+
+{% if task.completed %}
+<span class="completed">{{task.title}}</span>
+{% else %}
+<span>{{task.title}}</span>
+{% endif %}
+
+<div class="actions">
+
+<a href="/complete/{{task.id}}/">
+<button class="complete">Done</button>
+</a>
+
+<a href="/delete/{{task.id}}/">
+<button class="delete">Delete</button>
+</a>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
 </body>
 </html>
