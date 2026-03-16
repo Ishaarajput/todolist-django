@@ -23,6 +23,19 @@ def login(request):
 
     return render(request, "login.html")
 
+def signup(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        user = userreg(username=username, email=email, password=password)
+        user.save()
+
+        return redirect('login')
+
+    return render(request, 'signup.html')
+
 
 def addtask(request):
 
