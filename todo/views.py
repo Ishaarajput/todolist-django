@@ -3,6 +3,9 @@ from django.views.decorators.cache import cache_control
 from .models import userreg, Task
 
 
+def home(request):
+    return render(request, "home.html")
+
 def login(request):
 
     if request.method == "POST":
