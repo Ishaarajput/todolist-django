@@ -6,6 +6,7 @@ from .models import userreg, Task
 def home(request):
     return render(request, "home.html")
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def login(request):
 
     if request.method == "POST":
@@ -23,6 +24,7 @@ def login(request):
 
     return render(request, "login.html")
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def signup(request):
     if request.method == "POST":
         username = request.POST.get('username')
